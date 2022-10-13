@@ -1,21 +1,8 @@
 import './App.css';
 
 import { useEffect } from 'react';
-import { atom, useRecoilState } from 'recoil';
-
-//atoms
-const bgColorState = atom<string>({
-  key: 'bgColor',
-  default: 'orange',
-});
-const aswersState = atom<string[]>({
-  key: 'aswers',
-  default: [],
-});
-const isAnswerCorret = atom<boolean | undefined>({
-  key: 'isAnswerCorret',
-  default: undefined,
-});
+import { useRecoilState } from 'recoil';
+import { aswersState, bgColorState, isAnswerCorret } from './atoms';
 
 export const App = () => {
   //recoil states
@@ -48,10 +35,16 @@ export const App = () => {
 
   const handleOnClick = (answerColor: string) => {
     if (answerColor === color) {
-      setCorrectAnswer(true);
       generateColor();
+      setCorrectAnswer(true);
+      setTimeout(() => {
+        setCorrectAnswer(undefined);
+      }, 3000);
     } else {
       setCorrectAnswer(false);
+      setTimeout(() => {
+        setCorrectAnswer(undefined);
+      }, 3000);
     }
   };
 
