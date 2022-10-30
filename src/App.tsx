@@ -2,27 +2,28 @@ import './App.css';
 
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { aswersState, bgColorState, isAnswerCorret } from './atoms';
+
+import {
+  aswersState,
+  bgColorState,
+  correctScore,
+  isAnswerCorret,
+  wrongScore,
+} from './atoms';
 
 export const App = () => {
   //recoil states
   const [color, setColor] = useRecoilState(bgColorState);
   const [answers, setAnswers] = useRecoilState(aswersState);
   const [isCorrectAnswer, setCorrectAnswer] = useRecoilState(isAnswerCorret);
+  const [scoreCounter, setScoreCounter] = useRecoilState(correctScore);
+  const [wrongCounter, setWrongCounter] = useRecoilState(wrongScore);
 
-  //generating random color
-  const getRandomColor = () => {
-    const digits = '0123456789ABCDEF'.split('');
+  //generating random color with an onliner
+  const getRandomColor = () =>
+    `#${Math.floor(Math.random() * 0xffffff).toString(16)}`;
 
-    const color = new Array(6)
-      .fill('')
-      .map(() => digits[Math.floor(Math.random() * digits.length)])
-      .join('');
-
-    return `#${color}`;
-  };
-
-  //generating the answer buttons
+  //generating the answers buttons
   const generateColor = () => {
     const actualColor = getRandomColor();
     setColor(actualColor);
@@ -33,18 +34,17 @@ export const App = () => {
     );
   };
 
+  //show the result of the guess
   const handleOnClick = (answerColor: string) => {
     if (answerColor === color) {
       generateColor();
       setCorrectAnswer(true);
-      setTimeout(() => {
-        setCorrectAnswer(undefined);
-      }, 3000);
+      setScoreCounter(scoreCounter + 1);
+      setTimeout(() => setCorrectAnswer(undefined), 3000);
     } else {
       setCorrectAnswer(false);
-      setTimeout(() => {
-        setCorrectAnswer(undefined);
-      }, 3000);
+      setWrongCounter(wrongCounter + 1);
+      setTimeout(() => setCorrectAnswer(undefined), 3000);
     }
   };
 
@@ -54,14 +54,26 @@ export const App = () => {
 
   return (
     <main className="App">
-      <h1 className="title">Guess the box color</h1>
+      <header className="header">
+        <h1 className="title">Guess the box color</h1>
 
-      <div
+        <div className="score-box">
+          <h2 className="subtitle">
+            Score: <span className="score">{scoreCounter}</span>
+          </h2>
+
+          <h2 className="subtitle">
+            Wrong trys: <span className="score">{wrongCounter}</span>
+          </h2>
+        </div>
+      </header>
+
+      <section
         className="guess-me"
         style={{ background: `${color}` }}
-      ></div>
+      ></section>
 
-      <div className="buttons">
+      <section className="buttons">
         {answers.map((answer) => (
           <button
             className="btn"
@@ -71,10 +83,15 @@ export const App = () => {
             {answer}
           </button>
         ))}
-      </div>
+      </section>
 
-      {isCorrectAnswer === true && <div className="correct">Corret Answer</div>}
-      {isCorrectAnswer === false && <div className="wrong">Wrong Answer</div>}
+      {/* feedback answer */}
+      {isCorrectAnswer === true && (
+        <div className="answer correct">Corret Answer</div>
+      )}
+      {isCorrectAnswer === false && (
+        <div className="answer wrong">Wrong Answer</div>
+      )}
     </main>
   );
 };

@@ -1,8 +1,15 @@
 body,
 html,
 #root {
-  height: 100%;
-  background-color: #cecece;
+  width: 100%;
+  height: 100vh;
+  background: rgb(233, 212, 212);
+  background: linear-gradient(
+    315deg,
+    rgba(233, 212, 212, 1) 0%,
+    rgba(181, 245, 234, 1) 100%
+  );
+  font-family: 'JetBrains Mono', monospace;
 }
 
 * {

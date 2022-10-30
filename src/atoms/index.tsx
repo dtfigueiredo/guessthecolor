@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 //atoms
 export const bgColorState = atom<string>({
@@ -14,4 +14,14 @@ export const aswersState = atom<string[]>({
 export const isAnswerCorret = atom<boolean | undefined>({
   key: 'isAnswerCorret',
   default: undefined,
+});
+
+export const correctScore = atom<number>({
+  key: 'correctScore',
+  default: 0,
+});
+
+export const wrongScore = atom<number>({
+  key: 'wrongScore',
+  default: 0,
 });

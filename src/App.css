@@ -1,42 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
 .App {
+  margin: 0 auto;
+  width: min(90%, 400px);
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  width: 400px;
-  height: 100%;
   gap: 1rem;
+
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
 }
 
 .title {
   font-size: 2.5rem;
-  font-family: sans-serif;
+  font-family: 'Cinzel', serif;
   font-weight: bold;
+  text-transform: uppercase;
+}
+
+.score-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtitle {
+  margin-top: 0.5em;
 }
 
 .guess-me {
   width: 100%;
   height: 300px;
+  border: 2px solid #121212;
   border-radius: 0.675rem;
 }
 
 .buttons {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .btn {
-  flex: 1;
-  padding: 1rem 2rem;
+  width: 10em;
+  padding: 1rem;
   border: 1px solid #212121;
-  border-radius: 0.5rem;
+  border-radius: 0.675rem;
 
   background-color: #212121;
   color: #eee;
+  font-family: inherit;
+  text-transform: uppercase;
 
   cursor: pointer;
   transition: all 0.3s ease;
@@ -46,12 +67,15 @@
   opacity: 0.85;
 }
 
+.answer {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .correct {
-  color: green;
-  font-size: 1.25rem;
+  color: darkgreen;
 }
 
 .wrong {
   color: red;
-  font-size: 1.25rem;
 }
